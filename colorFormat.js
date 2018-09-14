@@ -1,5 +1,5 @@
 ;(function (undefined) {
-    "use strict"
+    "use strict";
     var _global;
     /**
      * 根据参数将颜色转换为对应的颜色格式（暂时只支持HEX/RGB/RGBA/HSL/HSLA）
@@ -208,7 +208,7 @@
                     if (t < 1 / 2) return q;
                     if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
                     return p;
-                }
+                };
                 r = hue2rgb(temp1, temp2, h + 1 / 3);
                 g = hue2rgb(temp1, temp2, h);
                 b = hue2rgb(temp1, temp2, h - 1 / 3);
