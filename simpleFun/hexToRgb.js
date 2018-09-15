@@ -1,4 +1,3 @@
-// RGB和HEX颜色互相转换:https://www.jianshu.com/p/520e3fccaf03
 console.group('hexToRgb HEX转RGB');
     console.group('hexToRgb("#fff"):');
         console.dir(hexToRgb("#fff"));

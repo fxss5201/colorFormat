@@ -1,5 +1,3 @@
-// HSL和HSV:https://en.wikipedia.org/wiki/HSL_and_HSV#From_HSL
-// HSL与RGB转换:https://www.cnblogs.com/daiguagua/p/3311756.html
 console.group('rgbToHsl RGB转HSL');
     console.group('rgbToHsl(getRgb("rgb(255,10,50)")):');
         console.dir(rgbToHsl(getRgb("rgb(255,10,50)")));

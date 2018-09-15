@@ -1,3 +1,9 @@
+/** 
+ * 将颜色值转换为你需要的格式，现在仅支持浏览器支持的HEX/RGB/RGBA/HSL/HSLA等5种格式，任意格式之间互相转换。
+ * time：2018-09-07
+ * by 樊小书生: http://www.fxss5201.cn/
+ * github: https://github.com/fxss5201/colorFormat
+ */
 ;(function (undefined) {
     "use strict";
     var _global;
@@ -6,7 +12,10 @@
      * @param {string} options.color 待转换的颜色值
      * @param {string} options.format 转换颜色的格式
      */
-    var colorFormat = function (options) {
+    var colorFormat = function(options) {
+        return new _colorFormat(options);    
+    };
+    var _colorFormat = function (options) {
         var result,
             color = options && options.color && options.color.toLowerCase() || "#f00", // color ：默认值为 "#f00"
             format = options && options.format && options.format.toLowerCase() || "rgb", // format ：默认值为 "rgb"
@@ -40,7 +49,8 @@
         }
         return result;
     };
-    colorFormat.prototype = {
+    _colorFormat.prototype = {
+        constructor: this,
         getRgb: function(rgb, type){
             /**
              * 传入字符串的rgb，如 "rgb(255,0,255)" ，获取rgb的各个参数值
@@ -52,7 +62,7 @@
             var red = Number(rgb[0].slice(1)),
                 green = Number(rgb[1]),
                 blue = flag ? Number(rgb[2]) : Number(rgb[2].slice(0, -1)),
-                opacity = flag ? Number(rgb[3].slice(0, -1)) : 1;
+                opacity = flag ? (Number(rgb[3].slice(0, -1)) > 1 ? 1 : Number(rgb[3].slice(0, -1))) : 1;
             return {
                 r: red,
                 g: green,
@@ -74,7 +84,7 @@
             var h = Number(hsl[0].slice(1)),
                 s = parseInt(hsl[1]),
                 l = flag ? parseInt(hsl[2]) : parseInt(hsl[2].slice(0, -1)),
-                opacity = flag ? Number(hsl[3].slice(0, -1)) : 1;
+                opacity = flag ? (Number(hsl[3].slice(0, -1)) > 1 ? 1 : Number(hsl[3].slice(0, -1))) : 1;
             return {
                 h: h,
                 s: s / 100,
@@ -92,23 +102,21 @@
             var red = Number(rgb.r).toString(16),
                 green = Number(rgb.g).toString(16),
                 blue = Number(rgb.b).toString(16),
-                opacity = Math.round(rgb.o * 255).toString(16);
+                opacity = Math.round(rgb.o * 255).toString(16),
+                simpleType = 0; // 转换之后的HEX是否可以简化，也就是说6位转为3位，或者8位转为4位
             red.length < 2 && (red = 0 + red);
             green.length < 2 && (green = 0 + green);
             blue.length < 2 && (blue = 0 + blue);
             opacity.length < 2 && (opacity = 0 + opacity);
-            if(red[0] == red[1] && green[0] == green[1] && blue[0] == blue[1] && opacity[0] == opacity[1]){
-                red = red[0];
-                green = green[0];
-                blue = blue[0];
-                opacity = opacity[0];
-            }
+            red[0] == red[1] && green[0] == green[1] && blue[0] == blue[1] && opacity[0] == opacity[1] && (simpleType = 1);
             return {
                 r: red,
                 g: green,
                 b: blue,
                 o: opacity,
-                complete: "#" + red + green + blue + (rgb.o == 1 ? "" : opacity)
+                complete: simpleType ?
+                    ("#" + red[0] + green[0] + blue[0] + (rgb.o == 1 ? "" : opacity)) :
+                    ("#" + red + green + blue + (rgb.o == 1 ? "" : opacity))
             }
         },
         rgbToHsl: function (rgb, type) {

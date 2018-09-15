@@ -15,7 +15,7 @@ function getHsl(hsl){
     var h = Number(hsl[0].slice(1)),
         s = parseInt(hsl[1]),
         l = flag ? parseInt(hsl[2]) : parseInt(hsl[2].slice(0, -1)),
-        opacity = flag ? Number(hsl[3].slice(0, -1)) : 1;
+        opacity = flag ? (Number(hsl[3].slice(0, -1)) > 1 ? 1 : Number(hsl[3].slice(0, -1))) : 1;
     return {
         h: h,
         s: s / 100,

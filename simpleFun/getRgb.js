@@ -15,7 +15,7 @@ function getRgb(rgb){
     var red = Number(rgb[0].slice(1)),
         green = Number(rgb[1]),
         blue = flag ? Number(rgb[2]) : Number(rgb[2].slice(0, -1)),
-        opacity = flag ? Number(rgb[3].slice(0, -1)) : 1;
+        opacity = flag ? (Number(rgb[3].slice(0, -1)) > 1 ? 1 : Number(rgb[3].slice(0, -1))) : 1;
     return {
         r: red,
         g: green,
