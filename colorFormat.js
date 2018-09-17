@@ -17,8 +17,8 @@
     };
     var _colorFormat = function (options) {
         var result,
-            color = options && options.color && options.color.toLowerCase() || "#f00", // color ：默认值为 "#f00"
-            format = options && options.format && options.format.toLowerCase() || "rgb", // format ：默认值为 "rgb"
+            color = options && options.color && options.color.replace(/\s/g, "").toLowerCase() || "#f00", // color ：默认值为 "#f00"
+            format = options && options.format && options.format.replace(/\s/g, "").toLowerCase() || "rgb", // format ：默认值为 "rgb"
             rgbType = format.indexOf("rgba") == -1 ? 0 : 1, // rgbType 0表示rgb，1表示rgba
             hslType = format.indexOf("hsla") == -1 ? 0 : 1; // hslType 0表示hsl，1表示hsla
         if (color.indexOf("#") > -1){
@@ -46,11 +46,44 @@
             } else if (format.indexOf("hsl") > -1) { // hsl 转 hsl/hsla
                 result = this.rgbToHsl(result, hslType);
             }
+        } else {
+            var defineColor = this.defineColor,
+                resultRgb;
+            for(var i = 0,len = defineColor.length; i < len; i++){
+                if(color == defineColor[i].name){
+                    resultRgb = defineColor[i].hex;
+                    break;
+                }
+            }
+            if(resultRgb && resultRgb.length > 0){
+                if (format == "hex"){ // hex 转 hex
+                    result = this.hexToRgb(resultRgb);
+                    result = this.rgbToHex(result);
+                } else if (format.indexOf("rgb") > -1){ // hex 转 rgb/rgba
+                    result = this.hexToRgb(resultRgb, rgbType);
+                } else if (format.indexOf("hsl") > -1) { // hex 转 hsl/hsla
+                    result = this.hexToRgb(resultRgb);
+                    result = this.rgbToHsl(result, hslType);
+                }
+            }else{
+                alert("参数color暂未定义");
+            }
         }
         return result;
     };
     _colorFormat.prototype = {
         constructor: this,
+        defineColor: [
+            { name: "red", hex: "#f00" },
+            { name: "orange", hex: "#ffa500" },
+            { name: "yellow", hex: "#ff0" },
+            { name: "green", hex: "#0f0" },
+            { name: "cyan", hex: "#0ff" },
+            { name: "blue", hex: "#00f" }, 
+            { name: "violet", hex: "#ee82ee" },
+            { name: "black", hex: "#000" },
+            { name: "white", hex: "#fff" }
+        ],
         getRgb: function(rgb, type){
             /**
              * 传入字符串的rgb，如 "rgb(255,0,255)" ，获取rgb的各个参数值

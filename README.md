@@ -10,7 +10,7 @@
 
 |参数|类型|默认值|描述|
 |----|----|----|----|
-|color|String|`"#f00"`|待转换的颜色值，支持`HEX/RGB/RGBA/HSL/HSLA` 5种格式|
+|color|String|`"#f00"`|待转换的颜色值，支持`HEX/RGB/RGBA/HSL/HSLA` 5 种格式，并且支持`red`/`orange`/`yellow`/`green`/`cyan`/`blue`/`violet`/`black`/`white`|
 |format|String|`"rgb"`|你希望将待转换的颜色值转换为哪种格式的颜色，支持`HEX/RGB/RGBA/HSL/HSLA` 5种格式|
 
 注意：
@@ -54,6 +54,8 @@
 colorFormat(); // {r: 255, g: 0, b: 0, o: 1, complete: "rgb(255,0,0)"}
 colorFormat({}); // {r: 255, g: 0, b: 0, o: 1, complete: "rgb(255,0,0)"}
 // 因为有默认值，所以上述两行执行结果一致
+
+colorFormat({color: "red", format: "rgb"}); // {r: 255, g: 0, b: 0, o: 1, complete: "rgb(255,0,0)"}
 
 colorFormat({color: "#ffffff", format: "hex"}); // {r: "ff", g: "ff", b: "ff", o: "ff", complete: "#fff"}
 
