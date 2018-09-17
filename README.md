@@ -4,7 +4,7 @@
 
 colorFormat.js是将颜色值转换为你需要格式的JavaScript库，现在仅支持浏览器支持的HEX/RGB/RGBA/HSL/HSLA等5种格式，任意格式之间互相转换。
 
-可能颜色互转的时候有些微差距，这是由于js在小数计算时不够精确或者对数据进行了四舍五入导致的结果，不过转换的结果与在浏览器开发者工具中转换的结果保持一致。
+可能颜色互转的时候有些微差距，这是由于JavaScript在小数计算时不够精确或者对数据进行了四舍五入导致的结果，不过转换的结果与在浏览器开发者工具中转换的结果保持一致(除了个别小数位)。
 
 ## 参数 ##
 
@@ -13,11 +13,12 @@ colorFormat.js是将颜色值转换为你需要格式的JavaScript库，现在�
 |color|String|`"#f00"`|待转换的颜色值，支持`HEX/RGB/RGBA/HSL/HSLA` 5 种格式，并且支持`red`/`orange`/`yellow`/`green`/`cyan`/`blue`/`violet`/`black`/`white`|
 |format|String|`"rgb"`|你希望将待转换的颜色值转换为哪种格式的颜色，支持`HEX/RGB/RGBA/HSL/HSLA` 5种格式|
 
-注意：
+**注意**：
  1. 请自行保证输入的待转换色值的正确性，本插件暂未对待转换色值的正确性进行判断，后期考虑添加。
  2. 如果是带有透明度的待转换色值强制转换为`RGB/HSL`时，转换结果除`complete`其他都正确，`complete`会严格按照`format`转换格式，所以会将透明度去除，看着感觉颜色不一致。
+ 3. color参数暂时仅支持`red`/`orange`/`yellow`/`green`/`cyan`/`blue`/`violet`/`black`/`white` 这几种默认颜色值，如果需要添加更多的参数，请自行在colorFormat.js源代码的`defineColor`上添加您需要自定义的颜色，需要和已有的格式保持一致。
 
-返回值：
+**返回值**：
 
 ```JavaScript
 // 返回值一般包括 5 个值，
