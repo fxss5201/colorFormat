@@ -1,5 +1,8 @@
 # colorFormat #
 
+![](https://img.shields.io/badge/language-javascript-green.svg)
+![](https://img.shields.io/badge/license-MIT-blue.svg)
+
 ## 介绍 ##
 
 colorFormat.js是将颜色值转换为你需要格式的JavaScript库，现在仅支持浏览器支持的HEX/RGB/RGBA/HSL/HSLA等5种格式，任意格式之间互相转换。
